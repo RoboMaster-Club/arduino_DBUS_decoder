@@ -21,5 +21,8 @@
     <ClInclude Include="__vm\.arduino_DBUS_decoder.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RemoteControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
