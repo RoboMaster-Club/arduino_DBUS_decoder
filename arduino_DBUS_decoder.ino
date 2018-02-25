@@ -1,6 +1,7 @@
 #include "RemoteControl.h"
 
 byte inputBuffer[18] = { 0 };
+byte idleData[] = { 0x0, 0x4, 0x20, 0x0, 0x1, 0x98, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
 int inputLen = 0;
 
 RC_Ctl_t RC_CtrlData;
@@ -23,6 +24,9 @@ void loop()
 	if (Serial.available()) {
 		if (inputLen == 18) {
 			//TODO - Verify data
+
+			
+
 			RC_CtrlData.rc.ch0 = ((int16_t)inputBuffer[0] | ((int16_t)inputBuffer[1] << 8)) & 0x07FF;
 			RC_CtrlData.rc.ch1 = (((int16_t)inputBuffer[1] >> 3) | ((int16_t)inputBuffer[2] << 5)) & 0x07FF;
 			RC_CtrlData.rc.ch2 = (((int16_t)inputBuffer[2] >> 6) | ((int16_t)inputBuffer[3] << 2) |

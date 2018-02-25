@@ -11,6 +11,4 @@ C:\Users\wangh\AppData\Local\Temp\VMBuilds\arduino_DBUS_decoder\uno\Debug\arduin
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
- C:\Users\wangh\AppData\Local\Temp\VMBuilds\arduino_DBUS_decoder\uno\Debug\RemoteControl.h \
- C:\Program\ Files\ (x86)\Microsoft\ Visual\ Studio\2017\Community\Common7\IDE\Extensions\xaohtdp2.q2m\Micro\ Platforms\default\debuggers\VM_DBG/VM_DBG.h \
- C:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h
+ C:\Users\wangh\AppData\Local\Temp\VMBuilds\arduino_DBUS_decoder\uno\Debug\RemoteControl.h
