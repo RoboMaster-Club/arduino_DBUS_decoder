@@ -1,7 +1,7 @@
 #include "RemoteControl.h"
 
 byte inputBuffer[18] = { 0 };
-byte idleData[] = { 0x0, 0x4, 0x20, 0x0, 0x1, 0x98, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
+byte idleData[] = { 0x0, 0x4, 0x20, 0x0, 0x1, 0xD8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }; // [5] can be 0x98, 0xD8, or 0x58
 int inputLen = 0;
 
 RC_Ctl_t RC_CtrlData;
@@ -25,7 +25,31 @@ void loop()
 		if (inputLen == 18) {
 			//TODO - Verify data
 
-			
+      int breakable, numPop = 0
+			while (numPop < 18) {
+        breakable = 1;
+        if (inputBuffer[0+numPop] != 0x0 || inputBuffer[(1+numPop)%18] != 0x4 || inputBuffer[(2+numPop)%18] != 0x20 || inputBuffer[(3+numPop)%18] != 0x0 || inputBuffer[(4+numPop)%18] != 0x1) {
+          breakable = 0;
+        }
+        if (inputBuffer[(5+numPop)%18] != 0xD8 || inputBuffer[(5+numPop)%18] != 0x98 || inputBuffer[(5+numPop)%18] != 0x58) {
+          breakable = 0;
+        }
+        for (int i = numPop+6; i < numPop+18; i++) {
+          if (inputBuffer[(i)%18] != 0x0) {
+            breakable = 0
+          }
+        }
+        if (breakable) {
+          break;
+        }
+        numPop++;
+			}
+
+     for (int i = 0; i < numPop; i++) {
+      Serial.read();
+     }
+
+     
 
 			RC_CtrlData.rc.ch0 = ((int16_t)inputBuffer[0] | ((int16_t)inputBuffer[1] << 8)) & 0x07FF;
 			RC_CtrlData.rc.ch1 = (((int16_t)inputBuffer[1] >> 3) | ((int16_t)inputBuffer[2] << 5)) & 0x07FF;
