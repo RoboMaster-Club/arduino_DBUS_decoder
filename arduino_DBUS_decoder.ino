@@ -29,7 +29,6 @@ void loop()
 	if (Serial.available()) {
 		if (inputLen == 18) {
 			//data correction
-			bool correctFlag = false;
 			int count = 0;
 			int i = 0;
 			for (; i < 18; i++) {
@@ -43,12 +42,10 @@ void loop()
 			if (count == 18 && i > 0) {
 				Serial.print(i);
 				Serial.println(" bits to correct");
-				correctFlag = true;
 				// dump i bits in the buffer as bad data
 				Serial.readBytes(uselessBuffer, i);
+				return;
 			}
-
-			if (correctFlag) return;
 
 			// convert raw data into meaningful data
 			RC_CtrlData.rc.ch0 = ((int16_t)inputBuffer[0] | ((int16_t)inputBuffer[1] << 8)) & 0x07FF;
