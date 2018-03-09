@@ -14,15 +14,13 @@ void setup()
 	// baud rate 100kHz, 8bit data, parity even, 1 stop bit
 	Serial1.begin(100000, SERIAL_8E1);
 	Serial.begin(9600);
-	//while (!Serial1.available()) {};
 }
 
 void loop()
 {
-	if (Serial1.available() > 18) {
+	if (Serial1.available() >= 18) {
 		Serial1.readBytes(inputBuffer, 18);
-		digitalWrite(13, LOW);   // set the LED on
-				//data correction
+		//data correction
 		int count = 0;
 		int i = 0;
 		for (; i < 18; i++) {
