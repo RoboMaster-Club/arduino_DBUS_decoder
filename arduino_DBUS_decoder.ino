@@ -1,6 +1,5 @@
 #include "RemoteControl.h"
 
-int inputLen = 0;
 char inputBuffer[18] = { 0 };
 // a useless buffer to dump bad data
 char uselessBuffer[18] = { 0 };
@@ -15,14 +14,13 @@ void setup()
 	// baud rate 100kHz, 8bit data, parity even, 1 stop bit
 	Serial1.begin(100000, SERIAL_8E1);
 	Serial.begin(9600);
-	pinMode(13, OUTPUT);
 	//while (!Serial1.available()) {};
 }
 
 void loop()
 {
 	if (Serial1.available() > 18) {
-		inputLen = Serial1.readBytes(inputBuffer, 18);
+		Serial1.readBytes(inputBuffer, 18);
 		digitalWrite(13, LOW);   // set the LED on
 				//data correction
 		int count = 0;
@@ -70,6 +68,8 @@ void loop()
 		}
 		sprintf(output, "C0: %d, C1: %d, C2: %d, C3: %d, S1: %d, S2: %d, X: %d, Y: %d, Z: %d, L: %d, R: %d, K: %u", RC_CtrlData.rc.ch0, RC_CtrlData.rc.ch1, RC_CtrlData.rc.ch2, RC_CtrlData.rc.ch3, RC_CtrlData.rc.s1, RC_CtrlData.rc.s2, RC_CtrlData.mouse.x, RC_CtrlData.mouse.y, RC_CtrlData.mouse.z, RC_CtrlData.mouse.press_l, RC_CtrlData.mouse.press_r, RC_CtrlData.key.v);
 		Serial.println(output);
-		inputLen = 0;
+
+		int pwm = map(RC_CtrlData.rc.ch0, 364, 1684, 0, 255);
+		analogWrite(A2, pwm);
 	}
 }
